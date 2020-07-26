@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.test import TestCase
+from django.test import TransactionTestCase
 
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -13,7 +13,7 @@ from recipe.serializers import TagSerializer
 TAGS_URL = reverse('recipe:tag-list')
 
 
-class PublicTagsApiTests(TestCase):
+class PublicTagsApiTests(TransactionTestCase):
     """Test the publicly available tags API."""
 
     def setUp(self):
@@ -26,7 +26,7 @@ class PublicTagsApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateTagsApiTests(TestCase):
+class PrivateTagsApiTests(TransactionTestCase):
     """Test the authorized user tags API."""
 
     def setUp(self):
